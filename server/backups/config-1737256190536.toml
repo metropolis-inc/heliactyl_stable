@@ -1,0 +1,184 @@
+# ═════════════════════════════════════════════════════════
+#                       Heliactyl Next Config            
+#          This config will work with Heliactyl Next 0.5.x 
+#         or any Namek based distribution. (120+)        
+# ═════════════════════════════════════════════════════════
+
+# ---------------------------------
+# General Configuration
+# ---------------------------------
+name = "Heliactyl Next" # Website/dashboard name
+auto_update = false # Automatically update Heliactyl Next on boot
+
+# ---------------------------------
+# Heliactyl Release Information
+# ---------------------------------
+platform_codename = "Namek"
+platform_level = 130 # channel: stable - 10-01-2025 (Namek R)
+version = "9.0.0"
+
+# ---------------------------------
+# Additional Settings
+# ---------------------------------
+database = "Heliactyl Next.db"
+
+# ---------------------------------
+# Pterodactyl Settings
+# ---------------------------------
+[pterodactyl]
+domain = "https://panel.xeh.sh" # Format: https://panel.domain.tld with no / on the end
+key = "ptla_ZNFbDajOQS1R7FhRnlGbvO0Y4WM92mdGK0Xey2iqowC	" # Find this under Admin -> Application API
+client_key = "ptlc_ZlCbMl3sTdB9lRqevjb2eXAcvlCW1j0UGQMNRuLgKGZ" # Create an admin account and generate from Account -> API Keys
+
+# ---------------------------------
+# Webserver Configuration
+# ---------------------------------
+[website]
+port = 25_000 # Default: 25_001
+secret = "CHANGE_THIS_SECRET" # Change this - do not run Heliactyl Next in production with the default secret
+domain = "https://xeh.sh"
+
+# ---------------------------------
+# API Client Settings
+# ---------------------------------
+[api.client]
+accountSwitcher = true
+
+# ---------------------------------
+# Stripe
+# ---------------------------------
+[api.client.stripe]
+secret_key = "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"
+
+  [api.client.discord]
+  client_id = "1322568720085811242"
+  client_secret = "SHoU6hgzcMEEgTHpS4qpGFOB1zchspX4"
+  bot_token = "MTMyMjU2ODcyMDA4NTgxMTI0Mg.GRyfpj.rqIXPTD-KcI2eKerUGpf5EnUYXK_53SG_YJ1KA"
+  server_id = "1322308245263614062"
+
+  [api.client.resend]
+  # ---------------------------------
+  # Resend API Key
+  #
+  # This is required, but no worries as Resend is free.
+  # ---------------------------------
+  api_key = "re_xxxxxxxx_xxxxxxxxxxxxxxxxxxxxxxxx"
+  from = "noreply@example.com"
+  app_name = "Heliactyl Next"
+
+  [api.client.api] # Heliactyl Next API version 5
+  enabled = false
+  code = "YOUR_API_KEY"
+
+  [api.client.passwordgenerator]
+  signup = true # Disable user signups
+  length = 24
+
+  [api.client.allow]
+  regen = true # Allow users to regenerate their SFTP/panel password
+  overresourcessuspend = false # Suspend users if they go over resource limits
+
+    [api.client.allow.server]
+    create = true
+    modify = true
+    delete = true
+
+  [api.client.packages]
+  default = "default" # Default package assigned to users
+
+# ---------------------------------
+# Package Configuration
+# ---------------------------------
+[api.client.packages.list.default]
+ram = 3_072
+disk = 10_240
+cpu = 100
+servers = 2
+
+# -----------------------------------------------------
+# Location Configuration
+# -----------------------------------------------------
+[api.client.locations.4]
+name = "Paris, FR - Recommended"
+
+[api.client.locations.3]
+name = "Phoenix, US"
+
+[api.client.locations.5]
+name = "Singapore, SG"
+
+# ---------------------------------
+# Egg Configuration
+# ---------------------------------
+
+# Paper
+[api.client.eggs.paper]
+display = "Minecraft: Java Edition - Paper"
+
+  [api.client.eggs.paper.minimum]
+  ram = 1_024
+  disk = 1_024
+  cpu = 80
+
+  [api.client.eggs.paper.info]
+  egg = 5
+  docker_image = "ghcr.io/pterodactyl/yolks:java_21"
+  startup = "java -Xms128M -Xmx{{SERVER_MEMORY}}M -Dterminal.jline=false -Dterminal.ansi=true -jar {{SERVER_JARFILE}}"
+
+    [api.client.eggs.paper.info.environment]
+    SERVER_JARFILE = "server.jar"
+    BUILD_NUMBER = "latest"
+
+    [api.client.eggs.paper.info.feature_limits]
+    databases = 4
+    backups = 4
+
+# Add more eggs the same way as Paper above
+
+# ---------------------------------
+# Coin Configuration
+# ---------------------------------
+[api.client.coins]
+enabled = true
+
+    [api.client.coins.store]
+    enabled = true
+
+      [api.client.coins.store.ram]
+      cost = 775
+
+      [api.client.coins.store.disk]
+      cost = 400
+
+      [api.client.coins.store.cpu]
+      cost = 650
+
+      [api.client.coins.store.servers]
+      cost = 300
+
+# ---------------------------------
+# Logging Configuration
+# ---------------------------------
+[logging]
+status = true
+webhook = "https://discord.com/api/webhooks/your_webhook_url"
+
+[logging.actions.user]
+signup = true
+"create server" = true
+"gifted coins" = true
+"modify server" = true
+"buy servers" = true
+"buy ram" = true
+"buy cpu" = true
+"buy disk" = true
+
+[logging.actions.admin]
+"set coins" = true
+"add coins" = true
+"set resources" = true
+"set plan" = true
+"create coupon" = true
+"revoke coupon" = true
+"remove account" = true
+"view ip" = true
